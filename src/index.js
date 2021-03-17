@@ -7,11 +7,11 @@ import { Provider } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 render(
-	<React.StrictMode>
+	<React.Fragment>
 		<CssBaseline />
 		<Provider store={store}>
 			<App />
 		</Provider>
-	</React.StrictMode>,
+	</React.Fragment>,
 	document.getElementById("root")
 );
