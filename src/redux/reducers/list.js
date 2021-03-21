@@ -1,43 +1,49 @@
 const initialState = {
 	list: [
 		{
-			id: 0,
+			id: 1,
 			value: "Karaganda",
 			isSelected: false,
 		},
 	],
-	count: 0,
+	count: 2,
 };
 
 export default function listReducer(state = initialState, { type, payload }) {
-	const list = [...state.list];
-
 	switch (type) {
 		case "ADD":
-			let id = state.count + 1;
-
-			list.push({ id, value: payload, isSelected: false });
-
-			return { ...state, list, count: id };
+			return {
+				list: [
+					...state.list,
+					{
+						id: state.count,
+						value: payload,
+						isSelected: false,
+					},
+				],
+				count: state.count + 1,
+			};
 
 		case "DELETE":
-			let newList = list.filter(item => item.isSelected !== true);
+			let newList = state.list.filter(item => item.isSelected !== true);
 
-			if (newList.length === 0) {
-				return { ...state, list: newList, count: 0 };
-			}
-
-			return { ...state, list: newList };
+			return {
+				list: newList,
+				count: newList.length === 0 ? 1 : state.count,
+			};
 
 		case "CHECKED":
-			const index = list.findIndex(item => item.id === payload);
-
-			if (~index) {
-				list[index] = { ...list[index], isSelected: !list[index].isSelected };
-				return { ...state, list };
-			}
-
-			return state;
+			return {
+				...state,
+				list: state.list.map(item =>
+					item.id === payload
+						? {
+								...item,
+								isSelected: !item.isSelected,
+						  }
+						: item
+				),
+			};
 
 		default:
 			return state;

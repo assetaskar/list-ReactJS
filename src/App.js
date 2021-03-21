@@ -49,10 +49,6 @@ function App() {
 		dispatch(hideAlert());
 	};
 
-	// for (const value in message) {
-	// 	console.log(message[value]);
-	// }
-
 	return (
 		<div>
 			<div className={classes.buttons}>
